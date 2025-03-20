@@ -18,23 +18,35 @@
 ## Технологии
 
 - **TypeScript** - статическая типизация для повышения надежности кода.
+- **Vite** - сборщик проекта
 - **React** - создание компонентов.
 - **React-Query** -  управление и кэширование состояния сервера.
 - **React-Router-Dom** - маршрутизация страниц.
 
 ## Установка
 
-1. null
 ```bash
-null
+$ npm install
+```
+
+## Запуск
+
+```bash
+# development
+$ npm run dev
 ```
 
 ## Структура проекта
 
 ```
+public/                 # Статические файлы проекта
+│
 src/
 │
+│── assets              # Ресурсы проекта
+│── main.tsx
 .env
+index.html
 tsconfig.json
 package.json
 ```
