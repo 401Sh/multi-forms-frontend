@@ -1,0 +1,28 @@
+{
+  "name": "multi-forms-frontend",
+  "version": "0.0.1",
+  "description": "A Node.js frontend setup, built with NestJS, designed to manage multi-forms submissions.",
+  "license": "ISC",
+  "author": "401Sh",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "start": "node build/index.js",
+    "dev": "tsc && node build/index.js"
+  },
+  "keywords": [
+    "react",
+    "vite",
+    "form"
+  ],
+  "devDependencies": {
+    "@types/node": "^22.13.10",
+    "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "react": "^19.0.0"
+  }
+}
