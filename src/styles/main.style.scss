@@ -1,0 +1,78 @@
+@use "sass:color";
+
+// Variables
+$primary-color: #a927dd;
+$secondary-color: #e22fb5;
+$font-stack: 'Arial', sans-serif;
+$border-radius: 5px;
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin button-style($bg-color) {
+  background-color: $bg-color;
+  color: #fff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: $border-radius;
+  cursor: pointer;
+  transition: background 0.3s;
+
+  &:hover {
+    background-color: color.adjust($bg-color, $lightness: -25%, $space: hsl);
+  }
+}
+
+// Styles
+body {
+  font-family: $font-stack;
+  background-color: #f5f5f5;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+// Buttons
+.button {
+  @include button-style($primary-color);
+}
+
+.button-secondary {
+  @include button-style($secondary-color);
+}
+
+// Forms
+input, textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: $border-radius;
+  outline: none;
+  transition: border 0.3s;
+
+  &:focus {
+    border-color: $primary-color;
+  }
+}
+
+// Grid
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -10px;
+}
+
+.col {
+  flex: 1;
+  padding: 10px;
+}

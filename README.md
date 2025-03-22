@@ -43,7 +43,13 @@ public/                 # Статические файлы проекта
 │
 src/
 │
-│── assets              # Ресурсы проекта
+│── assets/             # Ресурсы проекта
+│── layouts/            # Компоненты - обертки
+│── pages/              # Главные страницы
+│── styles/             # основные sass стили
+│
+│── App.tsx
+│── AppRoutes.tsx
 │── main.tsx
 .env
 index.html
