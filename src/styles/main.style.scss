@@ -6,6 +6,9 @@ $secondary-color: #e22fb5;
 $font-stack: 'Arial', sans-serif;
 $border-radius: 5px;
 
+$edge-padding: 20px;
+$list-gap: 12px;
+
 // Mixins
 @mixin flex-center {
   display: flex;
@@ -40,6 +43,7 @@ body {
   width: 90%;
   max-width: 1200px;
   margin: 0 auto;
+  padding: $edge-padding;
 }
 
 // Buttons
@@ -59,6 +63,7 @@ input, textarea {
   border-radius: $border-radius;
   outline: none;
   transition: border 0.3s;
+  margin-bottom: 16px;
 
   &:focus {
     border-color: $primary-color;
@@ -75,4 +80,75 @@ input, textarea {
 .col {
   flex: 1;
   padding: 10px;
+}
+
+// Контейнер для выравнивания по центру с отступами от краев экрана
+.centered-container {
+  width: 90%; // Ширина контейнера, можно настроить по вашему усмотрению
+  max-width: 1200px; // Максимальная ширина
+  // height: 100vh; // Высота на весь экран
+  margin: 0 auto; // Горизонтальное выравнивание по центру
+  padding: 20px; // Отступы от краев экрана
+  display: flex;
+  justify-content: center; // Центрирование по горизонтали
+  // align-items: center; // Центрирование по вертикали
+  box-sizing: border-box; // Чтобы отступы не влияли на ширину
+}
+
+
+
+select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: $border-radius;
+  font-family: $font-stack;
+  background-color: #fff;
+  color: #333;
+  transition: border 0.3s, background-color 0.3s;
+  margin-bottom: 16px;
+
+  &:focus {
+    border-color: $primary-color;
+    background-color: #f9f9f9;
+  }
+
+  option {
+    padding: 10px;
+    background-color: #fff;
+    color: #333;
+    border: none;
+    font-size: 1rem;
+
+    &:hover {
+      background-color: $primary-color;
+      color: #fff;
+    }
+  }
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  padding-left: $edge-padding;
+
+  li {
+    padding: 12px 15px;
+    margin-bottom: 8px;
+    background-color: #fff;
+    border-radius: $border-radius;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, transform 0.3s;
+
+    &:hover {
+      background-color: $secondary-color;
+      color: #fff;
+      transform: scale(1.05);
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
 }

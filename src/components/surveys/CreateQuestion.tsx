@@ -20,6 +20,8 @@ type CreateQuestionProps = {
 function CreateQuestion({ onClose, onSave }: CreateQuestionProps) {
   const [name, setName] = useState("")
   const [type, setType] = useState<QuestionType>(QuestionType.TEXT)
+  const [position, setPosition] = useState(1)
+  const [error, setError] = useState<string | null>(null)
   
   const surveyId = useContext(SurveyContext) as string
 
@@ -32,15 +34,22 @@ function CreateQuestion({ onClose, onSave }: CreateQuestionProps) {
     },
     onError: (error) => {
       logger.error("Error creating question", error)
+      setError("Error creating question")
     }
   })
   
-
+  
   function handleSave() {
+    if (!name.trim()) {
+      logger.error("Question name is required")
+      setError("Question name is required")
+      return
+    }
+
     const newQuestion = {
       name,
       type,
-      position: 1
+      position
     }
     
     mutation.mutate(newQuestion)
@@ -73,6 +82,22 @@ function CreateQuestion({ onClose, onSave }: CreateQuestionProps) {
           <option value={QuestionType.CHECK_BOX}>Checkbox</option>
         </select>
       </div>
+      <div>
+        <label
+          htmlFor="questionPosition"
+        >
+          Question Position:</label>
+        <input
+          type="number"
+          id="questionPosition"
+          value={position}
+          onChange={(e) => setPosition(Math.max(1, Number(e.target.value)))}
+          min="1"
+        />
+      </div>
+
+      {error && <p className="error-message">{error}</p>}
+
       <div>
         <button onClick={handleSave}>Save</button>
         <button onClick={onClose}>Cancel</button>

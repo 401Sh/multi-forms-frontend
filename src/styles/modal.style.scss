@@ -38,8 +38,7 @@
     margin-bottom: 5px;
   }
 
-  input,
-  select {
+  input, select {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
@@ -65,5 +64,19 @@
     &.cancel {
       @include button-style($secondary-color);
     }
+  }
+
+  #questionPosition {
+    width: 100px;
+    text-align: center;
+    font-size: 1rem;
+    padding: 5px;
+  }
+
+  .error-message {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: -10px;
+    margin-bottom: 10px;
   }
 }
