@@ -4,11 +4,11 @@ import { QuestionInterface } from "../../interfaces/question.interface"
 import { SurveyContext } from "../../pages/SurveyPage"
 import { useMutation } from "@tanstack/react-query"
 import logger from "../../utils/logger"
-import axiosInstance from "../../utils/axios-instance"
+import axiosPrivate from "../../utils/axios-private"
 import "../../styles/modal.style.scss"
 
 async function createQuestionRequest(surveyId: string, questionData: Partial<QuestionInterface>) {
-  const response = await axiosInstance.post(`/surveys/${surveyId}/questions`, questionData)
+  const response = await axiosPrivate.post(`/surveys/${surveyId}/questions`, questionData)
   return response.data
 }
 

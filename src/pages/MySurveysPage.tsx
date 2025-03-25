@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-import axiosInstance from "../utils/axios-instance"
+import axiosInstance from "../utils/axios-private"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router"
 import { SurveyInterface } from "../interfaces/survey.interface"

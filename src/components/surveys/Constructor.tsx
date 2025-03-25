@@ -3,14 +3,14 @@ import { QuestionInterface } from "../../interfaces/question.interface"
 import logger from "../../utils/logger"
 import { useMutation } from "@tanstack/react-query"
 import { SurveyContext } from "../../pages/SurveyPage"
-import axiosInstance from "../../utils/axios-instance"
+import axiosPrivate from "../../utils/axios-private"
 import CreateQuestion from "./CreateQuestion"
 import Question from "./Question"
 import "../../styles/survey.style.scss"
 import { SurveyInterface } from "../../interfaces/survey.interface"
 
 async function deleteQuestionRequest(surveyId: string, questionId: string) {
-  const response = await axiosInstance.delete(`/surveys/${surveyId}/questions/${questionId}`)
+  const response = await axiosPrivate.delete(`/surveys/${surveyId}/questions/${questionId}`)
   return response.data
 }
 

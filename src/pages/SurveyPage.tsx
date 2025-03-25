@@ -1,7 +1,7 @@
 import { useParams } from "react-router"
 import Constructor from "../components/surveys/Constructor"
 import { createContext, Suspense } from "react"
-import axiosInstance from "../utils/axios-instance"
+import axiosInstance from "../utils/axios-private"
 import { useQuery } from "@tanstack/react-query"
 
 export const SurveyContext = createContext<string | undefined>(undefined)

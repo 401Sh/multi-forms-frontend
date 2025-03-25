@@ -48,6 +48,7 @@ src/
 │   ├── surveys/        # Компоненты анкет
 │    
 │── enums/
+│── hooks/
 │── interfaces/
 │── layouts/            # Компоненты - обертки
 │── pages/              # Главные страницы
