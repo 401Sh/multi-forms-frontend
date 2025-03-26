@@ -16,7 +16,8 @@ async function createQuestionRequest(
   const response =  await send_secure_request(
     "post",
     `/surveys/${surveyId}/questions`,
-    setAuth, undefined,
+    setAuth,
+    undefined,
     questionData
   )
   return response.data

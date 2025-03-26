@@ -5,6 +5,7 @@ import MySurveysPage from "./pages/MySurveysPage"
 import ProfilePage from "./pages/ProfilePage"
 import SurveyPage from "./pages/SurveyPage"
 import SurveysHomePage from "./pages/SurveysHomePage"
+import AuthPage from "./pages/AuthPage"
 
 function AppRoutes() {
   return (
@@ -17,6 +18,7 @@ function AppRoutes() {
         <Route path="register" element={<SignUpPage />} />
         <Route path="login" element={<SignInPage />} />
       </Route> */}
+      <Route path="auth/:signType" element={<AuthPage />} />
 
       <Route path="profile" element={<ProfilePage />} />
 
