@@ -3,14 +3,23 @@ import { QuestionInterface } from "../../interfaces/question.interface"
 import logger from "../../utils/logger"
 import { useMutation } from "@tanstack/react-query"
 import { SurveyContext } from "../../pages/SurveyPage"
-import axiosPrivate from "../../utils/axios-private"
 import CreateQuestion from "./CreateQuestion"
 import Question from "./Question"
 import "../../styles/survey.style.scss"
 import { SurveyInterface } from "../../interfaces/survey.interface"
+import { send_secure_request } from "../../api/authorized-request"
+import { useAuth } from "../../hooks/AuthProvider"
 
-async function deleteQuestionRequest(surveyId: string, questionId: string) {
-  const response = await axiosPrivate.delete(`/surveys/${surveyId}/questions/${questionId}`)
+async function deleteQuestionRequest(
+  setAuth: (isAuth: boolean) => void,
+  surveyId: string,
+  questionId: string
+) {
+  const response = await send_secure_request(
+    "delete",
+    `/surveys/${surveyId}/questions/${questionId}`,
+    setAuth
+  )
   return response.data
 }
 
@@ -19,9 +28,10 @@ function Constructor({ data }: { data: SurveyInterface }) {
   const [isCreateQuestionModalOpen, setIsCreateQuestionModalOpen] = useState(false)
 
   const surveyId = useContext(SurveyContext) as string
+  const { setAuth } = useAuth()
 
   const deleteMutation = useMutation({
-    mutationFn: (questionId: string) => deleteQuestionRequest(surveyId, questionId),
+    mutationFn: (questionId: string) => deleteQuestionRequest(setAuth, surveyId, questionId),
     onSuccess: (_data, questionId: string) => {
       logger.info("Question deleted successfully")
       setQuestions(questions.filter(q => q.id !== questionId))

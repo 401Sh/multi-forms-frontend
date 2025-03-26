@@ -1,17 +1,19 @@
 import { useQuery } from "@tanstack/react-query"
-import axiosInstance from "../utils/axios-private"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router"
 import { SurveyInterface } from "../interfaces/survey.interface"
 import "../styles/main.style.scss"
+import { send_secure_request } from "../api/authorized-request"
+import { useAuth } from "../hooks/AuthProvider"
 
 async function fetchMySurveys(
+  setAuth: (isAuth: boolean) => void,
   search: string,
   page: number,
   ordering: string,
   pageSize: number = 10
 ) {
-  const response = await axiosInstance.get("/surveys/self",
+  const response = await send_secure_request("get", "/surveys/self", setAuth,
     {
       params: { search, page, pageSize, ordering }
     }
@@ -28,12 +30,13 @@ function MySurveysPage() {
   const [debouncedSearch, setDebouncedSearch] = useState(search)
 
   const navigate = useNavigate()
+  const { setAuth } = useAuth()
 
   const ordering = `${orderingField}:${orderingDirection}`
 
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["mySurveys", debouncedSearch, page, ordering],
-    queryFn: () => fetchMySurveys(debouncedSearch, page, ordering),
+    queryFn: () => fetchMySurveys(setAuth, debouncedSearch, page, ordering),
   })
   
   // Debouncer

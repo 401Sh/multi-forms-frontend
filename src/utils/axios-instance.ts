@@ -8,12 +8,8 @@ if (!protocol || !port || !host) {
   throw Error("host or port is undefined")
 }
 
-const axiosPublic = axios.create({
-  baseURL: `${protocol}${host}:${port}/api`,
-  headers: {
-    'Content-Type': 'application/json'
-  }
+export const API_URL = `${protocol}://${host}:${port}/api`
+
+export const API_Client = axios.create({
+  baseURL: API_URL
 })
-
-
-export default axiosPublic

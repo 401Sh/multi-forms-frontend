@@ -4,11 +4,21 @@ import { QuestionInterface } from "../../interfaces/question.interface"
 import { SurveyContext } from "../../pages/SurveyPage"
 import { useMutation } from "@tanstack/react-query"
 import logger from "../../utils/logger"
-import axiosPrivate from "../../utils/axios-private"
 import "../../styles/modal.style.scss"
+import { send_secure_request } from "../../api/authorized-request"
+import { useAuth } from "../../hooks/AuthProvider"
 
-async function createQuestionRequest(surveyId: string, questionData: Partial<QuestionInterface>) {
-  const response = await axiosPrivate.post(`/surveys/${surveyId}/questions`, questionData)
+async function createQuestionRequest(
+  setAuth: (isAuth: boolean) => void,
+  surveyId: string,
+  questionData: Partial<QuestionInterface>
+) {
+  const response =  await send_secure_request(
+    "post",
+    `/surveys/${surveyId}/questions`,
+    setAuth, undefined,
+    questionData
+  )
   return response.data
 }
 
@@ -24,9 +34,11 @@ function CreateQuestion({ onClose, onSave }: CreateQuestionProps) {
   const [error, setError] = useState<string | null>(null)
   
   const surveyId = useContext(SurveyContext) as string
+  const { setAuth } = useAuth()
 
   const mutation = useMutation({
-    mutationFn: (newQuestion: Partial<QuestionInterface>) => createQuestionRequest(surveyId, newQuestion),
+    mutationFn: (newQuestion: Partial<QuestionInterface>) => 
+      createQuestionRequest(setAuth, surveyId, newQuestion),
     onSuccess: (data) => {
       logger.info("Question created successfully", data)
       onSave(data)

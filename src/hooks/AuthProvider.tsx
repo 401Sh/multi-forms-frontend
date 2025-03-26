@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router';
 
 interface AuthContextType {
   isAuthenticated: boolean,
+  setAuth: (isAuth: boolean) => void
   logout: () => void
 }
 
@@ -14,21 +15,21 @@ export function AuthProvider({ children }: { children: JSX.Element }) {
 
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken')
-    
-    if (accessToken) {
-      setIsAuthenticated(true)
-    } else {
-      setIsAuthenticated(false)
-      navigate('/login')
-    }
-  }, [navigate])
+    setIsAuthenticated(!!accessToken)
+  }, [])
 
   function logout() {
-    localStorage.removeItem("accessToken")
+    setIsAuthenticated(false)
+    navigate('/login')
+  }
+
+  function setAuth(isAuth: boolean) {
+    if (isAuth) setIsAuthenticated(true)
+    else logout()
   }
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, setAuth, logout }}>
       {children}
     </AuthContext.Provider>
   )
