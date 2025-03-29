@@ -20,7 +20,7 @@ async function createQuestionRequest(
     undefined,
     questionData
   )
-  return response.data
+  return response
 }
 
 type CreateQuestionProps = {
