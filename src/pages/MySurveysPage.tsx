@@ -1,10 +1,11 @@
-import { useQuery } from "@tanstack/react-query"
+import { useMutation, useQuery } from "@tanstack/react-query"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router"
 import { SurveyInterface } from "../interfaces/survey.interface"
 import "../styles/main.style.scss"
 import { send_secure_request } from "../api/authorized-request"
 import { useAuth } from "../hooks/AuthProvider"
+import logger from "../utils/logger"
 
 async function fetchMySurveys(
   setAuth: (isAuth: boolean) => void,
@@ -19,6 +20,19 @@ async function fetchMySurveys(
   return response
 }
 
+
+async function createSurveyRequest(
+  setAuth: (isAuth: boolean) => void,
+) {
+  const response = await send_secure_request(
+    "post",
+    "/surveys",
+    setAuth
+  )
+  return response
+}
+
+
 function MySurveysPage() {
   const [search, setSearch] = useState("")
   const [page, setPage] = useState(1)
@@ -26,6 +40,7 @@ function MySurveysPage() {
   const [orderingDirection, setOrderingDirection] = useState("ASC")
 
   const [debouncedSearch, setDebouncedSearch] = useState(search)
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
   const navigate = useNavigate()
   const { setAuth } = useAuth()
@@ -36,6 +51,12 @@ function MySurveysPage() {
     queryKey: ["mySurveys", debouncedSearch, page, ordering],
     queryFn: () => fetchMySurveys(setAuth, debouncedSearch, page, ordering),
   })
+
+  useEffect(() => {
+    if (isError) {
+      setErrorMessage(error.message)
+    }
+  }, [data])
   
   // Debouncer
   useEffect(() => {
@@ -46,9 +67,31 @@ function MySurveysPage() {
     return () => clearTimeout(timer)
   }, [search])
 
+  const createMutation = useMutation({
+    mutationFn: () => createSurveyRequest(setAuth),
+    onSuccess: (data: SurveyInterface) => {
+      logger.info("Survey created successfully")
+      navigate(`/surveys/${data.id}`)
+    },
+    onError: (error: any) => {
+      logger.error("Error creating survey", error.response.data)
+      setErrorMessage("Failed to create survey: " + error.response.data.message)
+    }
+  })
+
+  function handleCreateSurvey() {
+    createMutation.mutate()
+  }
+
   return (
     <div className="container">
       <h1>My Surveys</h1>
+      <button
+          className="button"
+          onClick={handleCreateSurvey}
+        >
+          Create Survey
+        </button>
 
       {/* Search field */}
       <input
@@ -72,7 +115,7 @@ function MySurveysPage() {
       </select>
 
       {isLoading && <p>Loading surveys...</p>}
-      {isError && <p className="error-message">Error loading surveys: {error.message}</p>}
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
 
       {/* Survey list */}
       {data?.surveys && data.surveys.length > 0 ? (
