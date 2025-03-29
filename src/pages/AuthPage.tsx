@@ -8,8 +8,8 @@ function AuthPage() {
   const navigate = useNavigate()
 
   function handleSignUpRedirect() {
-    if (signType === "sign-up") navigate("/account/sign-in")
-    else navigate("/account/sign-up")
+    if (signType === "signup") navigate("/auth/signin")
+    else navigate("/auth/signup")
   }
 
   return (
@@ -24,7 +24,7 @@ function AuthPage() {
 
       <button onClick={handleSignUpRedirect}>
       {
-        signType === "sign-in" ?
+        signType === "signin" ?
           "Don't have an account? Sign up"
         :
           "Already have an account? Sign in"

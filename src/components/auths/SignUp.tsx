@@ -25,7 +25,8 @@ function SignUp() {
     mutationFn: (newUser: { login: string, password: string }) => 
       signupRequest(newUser),
     onSuccess: (data) => {
-      logger.info("User signed in successfully", data)
+      logger.debug("User signed in successfully", data)
+      localStorage.setItem("accessToken", data.accessToken)
       setAuth(true)
       navigate("/profile")
     },

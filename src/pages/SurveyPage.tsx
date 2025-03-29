@@ -9,7 +9,7 @@ export const SurveyContext = createContext<string | undefined>(undefined)
 
 async function fetchSurvey(setAuth: (isAuth: boolean) => void, surveyId: string) {
   const response = await send_secure_request("get", `/surveys/${surveyId}`, setAuth)
-  return response.data
+  return response
 }
 
 function SurveyPage() {

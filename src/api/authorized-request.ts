@@ -21,7 +21,8 @@ export async function send_secure_request(
       data,
       headers: {
         Authorization: token ? `Bearer ${token}` : undefined
-      }
+      },
+      withCredentials: true
     })
 
     const newToken = response.data.accessToken
@@ -43,7 +44,8 @@ export async function send_secure_request(
             {
               headers: {
                 Authorization: `Bearer ${token}`
-              }
+              },
+              withCredentials: true
             }
           )
 
@@ -51,12 +53,13 @@ export async function send_secure_request(
 
           if (refreshedToken) {
             localStorage.setItem("accessToken", refreshedToken)
-            return send_secure_request(method, url, setAuth, data)
+            return send_secure_request(method, url, setAuth, params, data)
           }
         } catch (refreshError) {
           logger.error("Token refresh failed", refreshError)
           localStorage.removeItem("accessToken")
           setAuth(false)
+          return
         }
       }
     }

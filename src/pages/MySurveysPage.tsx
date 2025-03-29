@@ -14,11 +14,9 @@ async function fetchMySurveys(
   pageSize: number = 10
 ) {
   const response = await send_secure_request("get", "/surveys/self", setAuth,
-    {
-      params: { search, page, pageSize, ordering }
-    }
+    { search, page, pageSize, ordering }
   )
-  return response.data
+  return response
 }
 
 function MySurveysPage() {
@@ -74,10 +72,10 @@ function MySurveysPage() {
       </select>
 
       {isLoading && <p>Loading surveys...</p>}
-      {isError && <p>Error loading surveys: {error.message}</p>}
+      {isError && <p className="error-message">Error loading surveys: {error.message}</p>}
 
       {/* Survey list */}
-      {data?.surveys.length > 0 ? (
+      {data?.surveys && data.surveys.length > 0 ? (
         <ul>
           {data!.surveys.map((survey: SurveyInterface) => (
             <li key={survey.id}>

@@ -20,7 +20,7 @@ export function AuthProvider({ children }: { children: JSX.Element }) {
 
   function logout() {
     setIsAuthenticated(false)
-    navigate('/login')
+    navigate('/auth/signin')
   }
 
   function setAuth(isAuth: boolean) {
