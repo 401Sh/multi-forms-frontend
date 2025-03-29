@@ -4,7 +4,6 @@ import logger from "../../utils/logger"
 import { useNavigate } from "react-router"
 import { API_Client } from "../../utils/axios-instance"
 import { useAuth } from "../../hooks/AuthProvider"
-import "../../styles/main.style.scss"
 
 async function signinRequest(
   userData: { login: string, password: string }
