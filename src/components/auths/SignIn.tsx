@@ -4,6 +4,7 @@ import logger from "../../utils/logger"
 import { useNavigate } from "react-router"
 import { API_Client } from "../../utils/axios-instance"
 import { useAuth } from "../../hooks/AuthProvider"
+import "../../styles/main.style.scss"
 
 async function signinRequest(
   userData: { login: string, password: string }
@@ -72,7 +73,7 @@ function SignIn() {
         onChange={(e) => setLogin(e.target.value)}
       />
       <input
-        type="text"
+        type="password"
         placeholder="Input password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
@@ -81,7 +82,7 @@ function SignIn() {
       {error && <p className="error-message">{error}</p>}
 
       <div>
-        <button onClick={handleSignIn}>Sign In</button>
+        <button className="button" onClick={handleSignIn}>Sign In</button>
       </div>
     </div>
   )

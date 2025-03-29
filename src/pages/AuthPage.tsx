@@ -22,7 +22,7 @@ function AuthPage() {
           <SignUp />
       }
 
-      <button onClick={handleSignUpRedirect}>
+      <button className="button-secondary" onClick={handleSignUpRedirect}>
       {
         signType === "signin" ?
           "Don't have an account? Sign up"

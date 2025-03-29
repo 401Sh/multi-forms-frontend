@@ -20,7 +20,7 @@ async function fetchMySurveys(
 }
 
 function MySurveysPage() {
-  const [search, setSearch] = useState('')
+  const [search, setSearch] = useState("")
   const [page, setPage] = useState(1)
   const [orderingField, setOrderingField] = useState("updatedAt")
   const [orderingDirection, setOrderingDirection] = useState("ASC")

@@ -3,7 +3,11 @@ import "../styles/navtab.style.scss"
 import { useAuth } from "../hooks/AuthProvider"
 
 function NavTab() {
-  const { isAuthenticated } = useAuth()
+  const { isAuthenticated, setAuth } = useAuth()
+
+  function handleClick() {
+    setAuth(false)
+  }
 
   return (
     <nav className="nav">
@@ -18,6 +22,8 @@ function NavTab() {
       
       <NavLink to="/surveys" className={({ isActive }) => isActive ? "active" : ""}>Surveys</NavLink>
       <NavLink to="/surveys/self" className={({ isActive }) => isActive ? "active" : ""}>My surveys</NavLink>
+
+      <button className="button" onClick={handleClick}>Log Out</button>
     </nav>
   )
 }

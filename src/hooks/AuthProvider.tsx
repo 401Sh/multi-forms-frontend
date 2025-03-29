@@ -20,6 +20,7 @@ export function AuthProvider({ children }: { children: JSX.Element }) {
 
   function logout() {
     setIsAuthenticated(false)
+    localStorage.removeItem("accessToken")
     navigate('/auth/signin')
   }
 

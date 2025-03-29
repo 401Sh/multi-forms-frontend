@@ -20,4 +20,14 @@
     color: white;
     background: #007bff;
   }
+
+  .button {
+    background-color: #004794;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
 }
