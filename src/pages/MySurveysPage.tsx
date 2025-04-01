@@ -87,11 +87,11 @@ function MySurveysPage() {
     <div className="container">
       <h1>My Surveys</h1>
       <button
-          className="button"
-          onClick={handleCreateSurvey}
-        >
-          Create Survey
-        </button>
+        className="button"
+        onClick={handleCreateSurvey}
+      >
+        Create Survey
+      </button>
 
       {/* Search field */}
       <input

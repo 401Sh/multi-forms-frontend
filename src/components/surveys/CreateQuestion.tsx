@@ -69,7 +69,7 @@ function CreateQuestion({ onClose, onSave }: CreateQuestionProps) {
   }
 
   return (
-    <div className="create-question-modal">
+    <div className="modal-window">
     <div className="modal-content">
 
       <h2>Create New Question</h2>

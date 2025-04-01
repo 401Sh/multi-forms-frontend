@@ -2,7 +2,7 @@
 @use "main.style.scss" as *;
 
 // Modal styles
-.create-question-modal {
+.modal-window {
   @include flex-center;
   position: fixed;
   top: 0;
