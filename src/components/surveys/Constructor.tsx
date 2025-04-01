@@ -1,6 +1,6 @@
-import { Suspense, useContext, useState } from "react"
+import { useContext, useState } from "react"
 import logger from "../../utils/logger"
-import { useMutation, useQuery } from "@tanstack/react-query"
+import { QueryObserverResult, RefetchOptions, useMutation } from "@tanstack/react-query"
 import { SurveyContext } from "../../pages/SurveyPage"
 import CreateQuestion from "./CreateQuestion"
 import Question from "./Question"
@@ -8,11 +8,6 @@ import "../../styles/survey.style.scss"
 import { send_secure_request } from "../../api/authorized-request"
 import { useAuth } from "../../hooks/AuthProvider"
 import { QuestionInterface } from "../../interfaces/question.interface"
-
-async function fetchSurvey(setAuth: (isAuth: boolean) => void, surveyId: string) {
-  const response = await send_secure_request("get", `/surveys/${surveyId}`, setAuth)
-  return response
-}
 
 async function deleteQuestionRequest(
   setAuth: (isAuth: boolean) => void,
@@ -27,17 +22,16 @@ async function deleteQuestionRequest(
   return response.data
 }
 
-function Constructor() {
+type ConstructorProps = {
+  refetch: (options?: RefetchOptions) => Promise<QueryObserverResult<any, Error>>,
+  questionsData: QuestionInterface[]
+}
+
+function Constructor({ refetch, questionsData }: ConstructorProps) {
   const [isCreateQuestionModalOpen, setIsCreateQuestionModalOpen] = useState(false)
 
   const surveyId = useContext(SurveyContext) as string
   const { setAuth } = useAuth()
-
-  const { data, isLoading, error, refetch } = useQuery({
-    queryKey: ["survey", surveyId],
-    queryFn: () => fetchSurvey(setAuth, surveyId!),
-    enabled: !!surveyId,
-  })
 
   const deleteMutation = useMutation({
     mutationFn: (questionId: string) => deleteQuestionRequest(setAuth, surveyId, questionId),
@@ -61,9 +55,6 @@ function Constructor() {
   function handleSaveNewQuestion() {
     refetch()
   }
-
-  if (isLoading) return <Suspense></Suspense>
-  if (error) return <p>Error loading survey</p>
   
   return (
     <div className="survey">
@@ -71,7 +62,7 @@ function Constructor() {
         <button className="add-question-btn" onClick={handleAddQuestion}>Add Question</button>
       </div>
 
-      {data.questions.map((q: Partial<QuestionInterface>) => (
+      {questionsData.map((q: Partial<QuestionInterface>) => (
         <div key={q.id} className="question">
           <Question
             questionData={q}

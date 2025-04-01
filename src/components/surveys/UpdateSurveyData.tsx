@@ -90,7 +90,7 @@ function UpdateSurveyData({ data, onClose, onSave }: CreateQuestionProps) {
         </input>
       </div>
       <div className="radio-option">
-        <label htmlFor="publishedType">Survey Description:</label>
+        <label htmlFor="publishedType">Publish Survey?</label>
         <div>
           <input
             type="radio"
@@ -121,8 +121,8 @@ function UpdateSurveyData({ data, onClose, onSave }: CreateQuestionProps) {
           value={access}
           onChange={(e) => setAccess(e.target.value as SurveyAccess)}
         >
-          <option value={SurveyAccess.PUBLIC}>Radio</option>
-          <option value={SurveyAccess.LINK}>Text</option>
+          <option value={SurveyAccess.PUBLIC}>Public</option>
+          <option value={SurveyAccess.LINK}>Link</option>
         </select>
       </div>
 
