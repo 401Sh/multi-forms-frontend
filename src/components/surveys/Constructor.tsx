@@ -65,6 +65,7 @@ function Constructor({ refetch, questionsData }: ConstructorProps) {
       {questionsData.map((q: Partial<QuestionInterface>) => (
         <div key={q.id} className="question">
           <Question
+            refetch={refetch}
             questionData={q}
             onDeleteQuestion={handleDeleteQuestion}
           />

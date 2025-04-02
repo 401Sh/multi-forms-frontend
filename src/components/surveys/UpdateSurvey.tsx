@@ -28,7 +28,7 @@ type CreateQuestionProps = {
   onSave: (newQuestion: Partial<SurveyInterface>) => void
 }
 
-function UpdateSurveyData({ data, onClose, onSave }: CreateQuestionProps) {
+function UpdateSurvey({ data, onClose, onSave }: CreateQuestionProps) {
   const [name, setName] = useState(data.name)
   const [description, setDescription] = useState(data.description)
   const [isPublished, setIsPublished] = useState(data.isPublished)
@@ -138,4 +138,4 @@ function UpdateSurveyData({ data, onClose, onSave }: CreateQuestionProps) {
   )
 }
 
-export default UpdateSurveyData
+export default UpdateSurvey

@@ -1,54 +1,65 @@
+import { useState } from "react"
 import { QuestionType } from "../../enums/question.enum"
 import { QuestionInterface } from "../../interfaces/question.interface"
 import "../../styles/survey.style.scss"
+import UpdateQuestion from "./UpdateQuestion"
+import { RefetchOptions, QueryObserverResult } from "@tanstack/react-query"
 
 type QuestType = {
+  refetch: (options?: RefetchOptions) => Promise<QueryObserverResult<any, Error>>,
   questionData: Partial<QuestionInterface>,
   onDeleteQuestion: (questionId: string) => void
 }
 
-function Question({ questionData, onDeleteQuestion  }: QuestType) {
-  const data = questionData
+function Question({ refetch, questionData, onDeleteQuestion  }: QuestType) {
+  const { type, name, questionOptions, questionText } = questionData
+
+  const [isUpdateQuestionModalOpen, setIsUpdateQuestionModalOpen] = useState(false)
 
   function handleDeleteQuestion() {
     onDeleteQuestion(questionData.id!)
   }
 
-  if (data.type === QuestionType.RADIO) {
-    return (
-      <div className="radio-options">
-        <label>{data.name}</label>
-        {data.questionOptions?.map(option => (
-          <div key={option.id} className="radio-option">
-            <input type="radio" id={option.id} />
-            <label htmlFor={option.id}>{option.text}</label>
-          </div>
-        ))}
-        <button className="delete-question-btn" onClick={handleDeleteQuestion}>Delete Question</button>
-      </div>
-    )
+  const isOptionBased = type === QuestionType.RADIO || type === QuestionType.CHECK_BOX
+
+  function handleUpdateQuestion() {
+    setIsUpdateQuestionModalOpen(true)
   }
 
-  if (data.type === QuestionType.CHECK_BOX) {
-    return (
-      <div className="checkbox-options">
-        <label>{data.name}</label>
-        {data.questionOptions?.map(option => (
-          <div key={option.id} className="checkbox-option">
-            <input type="checkbox" id={option.id} />
-            <label htmlFor={option.id}>{option.text}</label>
-          </div>
-        ))}
-        <button className="delete-question-btn" onClick={handleDeleteQuestion}>Delete Question</button>
-      </div>
-    )
+  function handleSaveQuestionUpdate() {
+    refetch()
   }
 
   return (
-    <div>
-      <label>{data.name}</label>
-      <p>{data.questionText}</p>
-      <button className="delete-question-btn" onClick={handleDeleteQuestion}>Delete Question</button>
+    <div className={isOptionBased ? `${type.toLowerCase()}-options` : "text-question"}>
+      <label>{name}</label>
+
+      {isOptionBased ? (
+        questionOptions?.map(option => (
+          <div key={option.id} className={`${type.toLowerCase()}-option`}>
+            <input type={type === QuestionType.RADIO ? "radio" : "checkbox"} id={option.id} />
+            <label htmlFor={option.id}>{option.text}</label>
+          </div>
+        ))
+      ) : (
+        <p>{questionText}</p>
+      )}
+
+      <button className="add-question-btn" onClick={handleUpdateQuestion}>
+        Update Question
+      </button>
+
+      <button className="delete-question-btn" onClick={handleDeleteQuestion}>
+        Delete Question
+      </button>
+
+      {isUpdateQuestionModalOpen && (
+        <UpdateQuestion
+          data={questionData}
+          onClose={() => setIsUpdateQuestionModalOpen(false)}
+          onSave={handleSaveQuestionUpdate}
+        />
+      )}
     </div>
   )
 }

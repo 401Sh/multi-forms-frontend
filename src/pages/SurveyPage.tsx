@@ -1,7 +1,7 @@
 import { useParams } from "react-router"
 import Constructor from "../components/surveys/Constructor"
 import { createContext, Suspense, useState } from "react"
-import UpdateSurveyData from "../components/surveys/UpdateSurveyData"
+import UpdateSurvey from "../components/surveys/UpdateSurvey"
 import { send_secure_request } from "../api/authorized-request"
 import { useAuth } from "../hooks/AuthProvider"
 import { useQuery } from "@tanstack/react-query"
@@ -59,7 +59,7 @@ function SurveyPage() {
       </Constructor>
 
       {isUpdateSurveyModalOpen && (
-        <UpdateSurveyData
+        <UpdateSurvey
           data={data}
           onClose={() => setIsUpdateSurveyModalOpen(false)}
           onSave={handleSaveUpdateSurvey}
