@@ -6,6 +6,7 @@ import ProfilePage from "./pages/ProfilePage"
 import SurveyPage from "./pages/SurveyPage"
 import SurveysHomePage from "./pages/SurveysHomePage"
 import AuthPage from "./pages/AuthPage"
+import SuccessFormResponse from "./components/forms/SuccessFormResponse"
 
 function AppRoutes() {
   return (
@@ -26,8 +27,11 @@ function AppRoutes() {
         <Route index element={<SurveysHomePage />} />
         <Route path="self" element={<MySurveysPage />} />
 
-        <Route path=":surveyId" element={<SurveyPage />} />
-        <Route path=":surveyId/form" element={<FormPage />} />
+        <Route path=":surveyId">
+          <Route element={<SurveyPage />} />
+          <Route path="form" element={<FormPage />} />
+          <Route path="form/success" element={<SuccessFormResponse />} />
+        </Route>
       </Route>
       {/* </Route> */}
       
