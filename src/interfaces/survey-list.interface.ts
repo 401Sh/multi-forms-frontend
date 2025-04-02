@@ -1,4 +1,4 @@
-import { SurveyInterface } from "./survey.interface";
+import { SurveyInterface } from "./survey.interface"
 
 export interface SurveyListInterface {
   surveys: SurveyInterface[],

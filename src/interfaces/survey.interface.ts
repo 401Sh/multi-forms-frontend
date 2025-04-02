@@ -1,5 +1,5 @@
-import { SurveyAccess } from "../enums/survey.enum";
-import { QuestionInterface } from "./question.interface";
+import { SurveyAccess } from "../enums/survey.enum"
+import { QuestionInterface } from "./question.interface"
 
 export interface SurveyInterface {
   id: string,

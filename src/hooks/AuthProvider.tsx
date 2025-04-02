@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect, JSX, useContext } from 'react'
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router'
 
 interface AuthContextType {
   isAuthenticated: boolean,

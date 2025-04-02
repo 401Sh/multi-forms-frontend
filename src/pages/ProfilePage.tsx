@@ -40,7 +40,7 @@ function ProfilePage() {
 
   const { setAuth } = useAuth()
 
-  const { data, isLoading, isError, error } = useQuery({
+  const { data, isLoading, isError, error, refetch } = useQuery({
     queryKey: ["profile"],
     queryFn: () => send_secure_request("get", "/users/self", setAuth),
   })
@@ -54,21 +54,18 @@ function ProfilePage() {
     }
   }, [data])
   
-  // не работают в мутации
-  function updateFields(login: string) {
-    setUserLogin(login)
-    setLogin("")
-    setPassword("")
-    setConfirmPassword("")
+  
+  function updateFields() {
+    refetch()
     setSuccess("Profile updated successfully")
   }
 
   const updateMutation = useMutation({
     mutationFn: (updateData: { login?: string, password?: string }) => 
       updateProfileRequest(setAuth, updateData),
-    onSuccess: (data) => {
+    onSuccess: () => {
       logger.info("Profile updated successfully")
-      updateFields(data.user.login)
+      updateFields()
     },
     onError: (error: any) => {
       logger.error("Error updating profile", error.response.data)
