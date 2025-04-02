@@ -130,7 +130,7 @@ function UpdateSurvey({ data, onClose, onSave }: CreateQuestionProps) {
 
       <div>
         <button onClick={handleSave}>Save</button>
-        <button onClick={onClose}>Cancel</button>
+        <button className="cancel" onClick={onClose}>Cancel</button>
       </div>
 
     </div>

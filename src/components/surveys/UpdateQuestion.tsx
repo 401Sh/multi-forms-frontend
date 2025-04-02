@@ -5,6 +5,8 @@ import { useMutation } from "@tanstack/react-query"
 import { send_secure_request } from "../../api/authorized-request"
 import logger from "../../utils/logger"
 import { QuestionInterface } from "../../interfaces/question.interface"
+import { QuestionType } from "../../enums/question.enum"
+import UpdateOptionsList from "./UpdateOptionsList"
 
 async function updateQuestionData(
   setAuth: (isAuth: boolean) => void,
@@ -57,11 +59,18 @@ function UpdateQuestion({ data, onClose, onSave }: CreateQuestionProps) {
   })
 
   function handleSave() {
-    const updateData = {
+    const updateData: Partial<QuestionInterface> = {
       name,
       position,
       questionText,
       isMandatory
+    }
+
+    if (data.type === QuestionType.TEXT) {
+      updateData.answer = answer
+      updateData.points = points
+    } else if (data.type === QuestionType.RADIO || data.type === QuestionType.CHECK_BOX) {
+      updateData.questionOptions = questionOptions
     }
     
     mutation.mutate(updateData)
@@ -122,7 +131,8 @@ function UpdateQuestion({ data, onClose, onSave }: CreateQuestionProps) {
         <label
           htmlFor="questionPosition"
         >
-          Question Position:</label>
+          Question Position:
+        </label>
         <input
           type="number"
           id="questionPosition"
@@ -132,11 +142,44 @@ function UpdateQuestion({ data, onClose, onSave }: CreateQuestionProps) {
         />
       </div>
 
+      {data.type === QuestionType.TEXT ? (
+        <>
+          <div>
+            <label htmlFor="answer">Correct Answer:</label>
+            <input
+              type="text"
+              id="answer"
+              value={answer}
+              onChange={(e) => setAnswer(e.target.value)}
+              placeholder="Enter answer"
+            />
+          </div>
+          <div>
+            <label htmlFor="questionPoints">
+              Question Points:
+            </label>
+            <input
+              type="number"
+              id="questionPoints"
+              value={points}
+              onChange={(e) => setPoints(Math.max(1, Number(e.target.value)))}
+              min="0"
+            />
+          </div>
+        </>
+      ) : (
+        <UpdateOptionsList
+          type={data.type!}
+          data={questionOptions!}
+          handleChange={setQuestionOptions}
+        />
+      )}
+
       {error && <p className="error-message">{error}</p>}
 
       <div>
         <button onClick={handleSave}>Save</button>
-        <button onClick={onClose}>Cancel</button>
+        <button className="cancel" onClick={onClose}>Cancel</button>
       </div>
 
     </div>

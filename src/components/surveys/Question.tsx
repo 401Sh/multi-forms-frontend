@@ -12,7 +12,7 @@ type QuestType = {
 }
 
 function Question({ refetch, questionData, onDeleteQuestion  }: QuestType) {
-  const { type, name, questionOptions, questionText } = questionData
+  const { type, name, questionOptions, questionText, answer, points } = questionData
 
   const [isUpdateQuestionModalOpen, setIsUpdateQuestionModalOpen] = useState(false)
 
@@ -32,17 +32,29 @@ function Question({ refetch, questionData, onDeleteQuestion  }: QuestType) {
 
   return (
     <div className={isOptionBased ? `${type.toLowerCase()}-options` : "text-question"}>
-      <label>{name}</label>
+      <label>Question: {name}</label>
+      { questionText && <p>Text: {questionText}</p> }
 
       {isOptionBased ? (
-        questionOptions?.map(option => (
+        questionOptions?.sort((a, b) => a.position - b.position)
+        .map(option => (
           <div key={option.id} className={`${type.toLowerCase()}-option`}>
-            <input type={type === QuestionType.RADIO ? "radio" : "checkbox"} id={option.id} />
             <label htmlFor={option.id}>{option.text}</label>
+            <input
+              type={type === QuestionType.RADIO ? "radio" : "checkbox"}
+              id={option.id}
+              name={questionData.id}
+              checked={option.isCorrect}
+              readOnly
+            />
+            <p>Is Correct Answer: {String(option.isCorrect)}</p>
           </div>
         ))
       ) : (
-        <p>{questionText}</p>
+        <div>
+          { answer && <p>Answer: {answer}</p> }
+          <p>Points: {points}</p>
+        </div>
       )}
 
       <button className="add-question-btn" onClick={handleUpdateQuestion}>
