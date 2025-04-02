@@ -1,0 +1,39 @@
+@use "sass:color";
+@use "main.style.scss" as *;
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  
+  button {
+    @include button-style($primary-color);
+    background-color: #f0f0f0;
+    color: #333;
+    border: 1px solid #ccc;
+    padding: 10px 20px;
+    margin: 0 5px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: $border-radius 0 0 $border-radius; // Добавлено закругление для верхних углов
+
+    &:hover {
+      background-color: color.adjust($primary-color, $lightness: -10%, $space: hsl);
+      border-color: $primary-color;
+    }
+
+    &.active {
+      background-color: $primary-color;
+      color: white;
+      border-color: $primary-color;
+    }
+  }
+
+  button:first-child {
+    border-radius: $border-radius 0 0 $border-radius; // Скругление первой кнопки
+  }
+
+  button:last-child {
+    border-radius: 0 $border-radius 0 $border-radius; // Скругление последней кнопки
+  }
+}

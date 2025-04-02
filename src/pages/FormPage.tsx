@@ -9,6 +9,7 @@ import "../styles/main.style.scss"
 import { QuestionOption } from "../interfaces/question-option.interface"
 import { QuestionInterface } from "../interfaces/question.interface"
 import { SurveyInterface } from "../interfaces/survey.interface"
+import { QuestionType } from "../enums/question.enum"
 
 async function fetchForm(
   setAuth: (isAuth: boolean) => void,
@@ -50,6 +51,7 @@ function FormPage() {
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["form", surveyId],
     queryFn: () => fetchForm(setAuth, surveyId!),
+    placeholderData: (prev) => prev
   })
 
   useEffect(() => {
@@ -76,37 +78,48 @@ function FormPage() {
   })
 
 
-  function handleChange(questionId: string, value: string, isMultiple = false) {
+  function handleChange(questionId: string, value: string, type: QuestionType) {
     setAnswers((prev) => {
       const existingAnswer = prev.find((a) => a.questionId === questionId)
   
-      if (isMultiple) {
-        // Если ответ уже есть — обновляем
+      if (type == QuestionType.TEXT) {
+        // Обработка текстовых вопросов
+        if (existingAnswer) {
+          return prev.map((a) =>
+            a.questionId === questionId ? { ...a, answerText: value } : a
+          )
+        }
+        return [...prev, { questionId, answerText: value }]
+      }
+  
+      // Обработка для чекбоксов и радиокнопок
+      if (type == QuestionType.CHECK_BOX) {
+        // Для чекбоксов (множественные ответы)
         if (existingAnswer) {
           return prev.map((a) =>
             a.questionId === questionId
               ? {
                   ...a,
                   answerOptions: a.answerOptions?.includes(value)
-                    ? a.answerOptions.filter((v) => v !== value) // Убираем если был
-                    : [...(a.answerOptions || []), value], // Добавляем если не было
+                    ? a.answerOptions.filter((v) => v !== value) // Убираем, если был
+                    : [...(a.answerOptions || []), value], // Добавляем, если не было
                 }
               : a
           )
         }
-        // Если ответа не было — добавляем новый
-        return [...prev, { questionId, answerOptions: [value] }]
       }
   
+      // Для радиокнопок (одиночный ответ)
       if (existingAnswer) {
         return prev.map((a) =>
-          a.questionId === questionId ? { ...a, answerText: value } : a
+          a.questionId === questionId
+            ? { ...a, answerOptions: [value] } : a // Заменяем старый ответ на новый
         )
       }
   
-      return [...prev, { questionId, answerText: value }]
+      return [...prev, { questionId, answerOptions: [value] }]
     })
-  }
+  }  
 
 
   function handleSubmit(e: React.FormEvent) {
@@ -125,7 +138,7 @@ function FormPage() {
       setErrorMessage("All mandatory questions must be answered")
       return
     }
-
+    console.dir(answers, {depth:5})
     updateMutation.mutate(answers)
   }
 
@@ -148,7 +161,7 @@ function FormPage() {
             <input
               type="text"
               value={answers.find((a) => a.questionId === q.id)?.answerText || ""}
-              onChange={(e) => handleChange(q.id, e.target.value)}
+              onChange={(e) => handleChange(q.id, e.target.value, QuestionType.TEXT)}
               required={q.isMandatory}
             />
           )}
@@ -159,7 +172,7 @@ function FormPage() {
                   <input
                     type="checkbox"
                     checked={answers.find((a) => a.questionId === q.id)?.answerOptions?.includes(opt.id) || false}
-                    onChange={() => handleChange(q.id, opt.id, true)}
+                    onChange={() => handleChange(q.id, opt.id, QuestionType.CHECK_BOX)}
                   />
                   {opt.text}
                 </label>
@@ -174,8 +187,8 @@ function FormPage() {
                     type="radio"
                     name={q.id}
                     value={opt.id}
-                    checked={answers.find((a) => a.questionId === q.id)?.answerText === opt.id}
-                    onChange={() => handleChange(q.id, opt.id)}
+                    checked={answers.find((a) => a.questionId === q.id)?.answerOptions?.includes(opt.id) || false}
+                    onChange={() => handleChange(q.id, opt.id, QuestionType.RADIO)}
                   />
                   {opt.text}
                 </label>

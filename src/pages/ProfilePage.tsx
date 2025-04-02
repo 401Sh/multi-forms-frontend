@@ -43,6 +43,7 @@ function ProfilePage() {
   const { data, isLoading, isError, error, refetch } = useQuery({
     queryKey: ["profile"],
     queryFn: () => send_secure_request("get", "/users/self", setAuth),
+    placeholderData: (prev) => prev
   })
 
   useEffect(() => {
