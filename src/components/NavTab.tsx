@@ -21,9 +21,13 @@ function NavTab() {
       }
       
       <NavLink to="/surveys" className={({ isActive }) => isActive ? "active" : ""}>Surveys</NavLink>
-      <NavLink to="/surveys/self" className={({ isActive }) => isActive ? "active" : ""}>My surveys</NavLink>
 
-      {isAuthenticated && <button className="button" onClick={handleClick}>Log Out</button> }
+      {isAuthenticated && 
+      <>
+        <NavLink to="/surveys/self" className={({ isActive }) => isActive ? "active" : ""}>My surveys</NavLink>
+        <button className="button" onClick={handleClick}>Log Out</button>
+      </>
+      }
     </nav>
   )
 }

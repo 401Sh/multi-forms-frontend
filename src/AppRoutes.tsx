@@ -27,11 +27,9 @@ function AppRoutes() {
         <Route index element={<SurveysHomePage />} />
         <Route path="self" element={<MySurveysPage />} />
 
-        <Route path=":surveyId">
-          <Route element={<SurveyPage />} />
-          <Route path="form" element={<FormPage />} />
-          <Route path="form/success" element={<SuccessFormResponse />} />
-        </Route>
+        <Route path=":surveyId" element={<SurveyPage />} />
+        <Route path=":surveyId/form" element={<FormPage />} />
+        <Route path=":surveyId/form/success" element={<SuccessFormResponse />} />
       </Route>
       {/* </Route> */}
       

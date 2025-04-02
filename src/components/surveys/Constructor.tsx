@@ -35,7 +35,7 @@ function Constructor({ refetch, questionsData }: ConstructorProps) {
 
   const deleteMutation = useMutation({
     mutationFn: (questionId: string) => deleteQuestionRequest(setAuth, surveyId, questionId),
-    onSuccess: (_data) => {
+    onSuccess: () => {
       logger.info("Question deleted successfully")
       refetch()
     },
@@ -55,21 +55,23 @@ function Constructor({ refetch, questionsData }: ConstructorProps) {
   function handleSaveNewQuestion() {
     refetch()
   }
-  
+
   return (
     <div className="survey">
       <div className="survey-header">
         <button className="add-question-btn" onClick={handleAddQuestion}>Add Question</button>
       </div>
 
-      {questionsData.map((q: Partial<QuestionInterface>) => (
-        <div key={q.id} className="question">
-          <Question
-            refetch={refetch}
-            questionData={q}
-            onDeleteQuestion={handleDeleteQuestion}
-          />
-        </div>
+      {questionsData
+        .sort((a, b) => (a.position ?? 0) - (b.position ?? 0)) // Сортировка по position
+        .map((q: Partial<QuestionInterface>) => (
+          <div key={q.id} className="question">
+            <Question
+              refetch={refetch}
+              questionData={q}
+              onDeleteQuestion={handleDeleteQuestion}
+            />
+          </div>
       ))}
 
       {isCreateQuestionModalOpen && (
