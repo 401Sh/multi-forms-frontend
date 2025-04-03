@@ -6,8 +6,8 @@ import { send_secure_request } from "../api/authorized-request"
 import { useAuth } from "../hooks/AuthProvider"
 import { useQuery } from "@tanstack/react-query"
 import "../styles/main.style.scss"
-import "../styles/tab,style.scss"
-import ResponseData from "../components/forms/ResponseData"
+import "../styles/tab.style.scss"
+import ResponsesData from "../components/forms/ResponsesData"
 
 export const SurveyContext = createContext<string | undefined>(undefined)
 
@@ -25,7 +25,7 @@ function SurveyPage() {
   const [searchParams, setSearchParams] = useSearchParams()
   const activeTab = searchParams.get("tab") || "constructor"
 
-  const { data, isLoading, error, refetch } = useQuery({
+  const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ["survey", surveyId],
     queryFn: () => fetchSurvey(setAuth, surveyId!),
     enabled: !!surveyId,
@@ -45,7 +45,7 @@ function SurveyPage() {
   }
 
   if (isLoading) return <Suspense></Suspense>
-  if (error) return <p>Error loading survey</p>
+  if (isError) return <p>Error loading survey</p>
 
   return (
     <div className="container">
@@ -82,7 +82,7 @@ function SurveyPage() {
       </> }
 
       {activeTab === "responses" && (
-          <ResponseData />
+          <ResponsesData questions={data.questions}/>
       )}
 
       {isUpdateSurveyModalOpen && (

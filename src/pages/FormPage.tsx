@@ -26,7 +26,7 @@ async function fetchForm(
 async function createFormRequest(
   setAuth: (isAuth: boolean) => void,
   surveyId: string,
-  answersData: AnswerInterface[]
+  answersData: Partial<AnswerInterface>[]
 ) {
   const response = await send_secure_request(
     "post",
@@ -41,7 +41,7 @@ async function createFormRequest(
 
 function FormPage() {
   const [formData, setFormData] = useState<SurveyInterface>()
-  const [answers, setAnswers] = useState<AnswerInterface[]>([])
+  const [answers, setAnswers] = useState<Partial<AnswerInterface>[]>([])
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
   const { surveyId } = useParams()
@@ -65,7 +65,7 @@ function FormPage() {
   
 
   const updateMutation = useMutation({
-    mutationFn: (answersData: AnswerInterface[]) => 
+    mutationFn: (answersData: Partial<AnswerInterface>[]) => 
       createFormRequest(setAuth, surveyId!, answersData),
     onSuccess: () => {
       logger.info("Form response created successfully")

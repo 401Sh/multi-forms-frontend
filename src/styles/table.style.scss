@@ -1,0 +1,22 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 2px solid #ac0095;
+
+  th, td {
+    border: 1px solid #666;
+    padding: 8px;
+    text-align: left;
+  }
+
+  th {
+    background-color: #d4007c;
+    color: white;
+  }
+
+  tbody tr:hover {
+    background-color: #eb62fd;
+  }
+}
