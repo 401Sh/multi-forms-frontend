@@ -1,38 +1,7 @@
 @use "sass:color";
-@use "main.style.scss" as *;
+@use "./variables" as *;
+@use "./mixins" as *;
 
-// Variables
-$primary-color: #a927dd;
-$secondary-color: #e22fb5;
-$font-stack: 'Arial', sans-serif;
-$border-radius: 5px;
-$padding: 10px;
-$margin: 15px;
-
-// Mixins
-@mixin button-style($bg-color) {
-  background-color: $bg-color;
-  color: #fff;
-  padding: 10px 15px;
-  border: none;
-  border-radius: $border-radius;
-  cursor: pointer;
-  transition: background 0.3s;
-
-  &:hover {
-    background-color: color.adjust($bg-color, $lightness: -25%, $space: hsl);
-  }
-}
-
-@mixin card-style {
-  background-color: #fff;
-  padding: $padding;
-  border-radius: $border-radius;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  margin-bottom: $margin;
-}
-
-// Global Styles
 body {
   font-family: $font-stack;
   background-color: #f5f5f5;
@@ -41,7 +10,6 @@ body {
   box-sizing: border-box;
 }
 
-// Container for forms and pages
 .container {
   width: 90%;
   max-width: 1200px;
@@ -57,25 +25,29 @@ body {
   @include button-style($secondary-color);
 }
 
-.add-question-btn {
-  @include button-style($primary-color);
-  margin-right: 10px;
-  padding: 8px 12px;
-  font-size: 1rem;
-}
-
+.add-question-btn,
 .delete-question-btn {
-  @include button-style($secondary-color);
-  padding: 8px 12px;
   font-size: 1rem;
+  padding: 8px 12px;
+  border-radius: $border-radius;
+
+  &.add-question-btn {
+    @include button-style($primary-color);
+    margin-right: 10px;
+  }
+
+  &.delete-question-btn {
+    @include button-style($secondary-color);
+  }
 }
 
-// Questionnaire Page Styles
+// Survey Card
 .survey {
   @include card-style;
   padding: 20px;
 }
 
+// Header Section
 .survey-header {
   display: flex;
   justify-content: space-between;
@@ -89,20 +61,22 @@ body {
 
   .add-question-btn {
     background-color: $secondary-color;
+
     &:hover {
       background-color: color.adjust($secondary-color, $lightness: -25%, $space: hsl);
     }
   }
 
   .delete-page-btn {
-    background-color: red;
+    @include button-style(red);
+
     &:hover {
       background-color: darkred;
     }
   }
 }
 
-// Question Styles
+// Question Block
 .question {
   @include card-style;
   padding: 15px;
@@ -127,7 +101,7 @@ body {
   }
 }
 
-// Question Type Specific Styles
+// Option Types
 .radio-options,
 .checkbox-options {
   display: flex;
@@ -144,14 +118,11 @@ body {
   }
 }
 
-// Create Question Modal Styles
+// Modal
 .create-question-modal {
   @include flex-center;
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 1000;
 
@@ -169,10 +140,6 @@ body {
     font-size: 1.5rem;
     color: $primary-color;
     margin-bottom: 20px;
-  }
-
-  div {
-    margin-bottom: 15px;
   }
 
   label {
@@ -199,7 +166,6 @@ body {
   button {
     @include button-style($primary-color);
     margin-right: 10px;
-    padding: 10px 15px;
     font-size: 1rem;
 
     &:hover {

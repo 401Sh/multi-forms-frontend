@@ -1,34 +1,6 @@
 @use "sass:color";
-
-// Variables
-$primary-color: #a927dd;
-$secondary-color: #e22fb5;
-$font-stack: 'Arial', sans-serif;
-$border-radius: 5px;
-
-$edge-padding: 20px;
-$list-gap: 12px;
-
-// Mixins
-@mixin flex-center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-@mixin button-style($bg-color) {
-  background-color: $bg-color;
-  color: #fff;
-  padding: 10px 15px;
-  border: none;
-  border-radius: $border-radius;
-  cursor: pointer;
-  transition: background 0.3s;
-
-  &:hover {
-    background-color: color.adjust($bg-color, $lightness: -25%, $space: hsl);
-  }
-}
+@use "./variables" as *;
+@use "./mixins" as *;
 
 // Styles
 body {

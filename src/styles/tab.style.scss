@@ -1,39 +1,40 @@
 @use "sass:color";
-@use "main.style.scss" as *;
+@use "./variables" as *;
+@use "./mixins" as *;
 
 .tabs {
   display: flex;
   justify-content: center;
   margin-bottom: 20px;
-  
+  border-bottom: 2px solid #ccc;
+
   button {
-    @include button-style($primary-color);
+    @include button-style($primary-color); // Используем базовый стиль
     background-color: #f0f0f0;
     color: #333;
-    border: 1px solid #ccc;
+    border: none;
+    border-bottom: 2px solid transparent;
     padding: 10px 20px;
-    margin: 0 5px;
+    margin: 0;
     font-size: 16px;
     cursor: pointer;
-    border-radius: $border-radius 0 0 $border-radius; // Добавлено закругление для верхних углов
+    border-radius: $border-radius $border-radius 0 0;
+    transition: background-color 0.3s, color 0.3s, border-bottom 0.3s;
 
     &:hover {
-      background-color: color.adjust($primary-color, $lightness: -10%, $space: hsl);
-      border-color: $primary-color;
+      background-color: color.adjust($primary-color, $lightness: 35%);
+      color: $primary-color;
     }
 
     &.active {
-      background-color: $primary-color;
-      color: white;
-      border-color: $primary-color;
+      background-color: #fff;
+      color: $primary-color;
+      border-bottom: 2px solid $primary-color;
+      font-weight: bold;
     }
   }
 
-  button:first-child {
-    border-radius: $border-radius 0 0 $border-radius; // Скругление первой кнопки
-  }
-
-  button:last-child {
-    border-radius: 0 $border-radius 0 $border-radius; // Скругление последней кнопки
+  button + button {
+    margin-left: 5px;
   }
 }
