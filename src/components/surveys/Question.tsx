@@ -12,7 +12,15 @@ type QuestType = {
 }
 
 function Question({ refetch, questionData, onDeleteQuestion  }: QuestType) {
-  const { type, name, questionOptions, questionText, answer, points } = questionData
+  const {
+    type,
+    name,
+    questionOptions,
+    questionText,
+    answer,
+    points,
+    isMandatory
+  } = questionData
 
   const [isUpdateQuestionModalOpen, setIsUpdateQuestionModalOpen] = useState(false)
 
@@ -33,6 +41,7 @@ function Question({ refetch, questionData, onDeleteQuestion  }: QuestType) {
   return (
     <div className={isOptionBased ? `${type.toLowerCase()}-options` : "text-question"}>
       <label>Question: {name}</label>
+      <p>Is Mandatory: {String(isMandatory)}</p>
       { questionText && <p>Text: {questionText}</p> }
 
       {isOptionBased ? (

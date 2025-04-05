@@ -37,7 +37,7 @@ body {
   }
 
   &.delete-question-btn {
-    @include button-style($secondary-color);
+    @include button-style(red);
   }
 }
 

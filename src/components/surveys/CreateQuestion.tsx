@@ -111,7 +111,7 @@ function CreateQuestion({ onClose, onSave }: CreateQuestionProps) {
 
       {error && <p className="error-message">{error}</p>}
 
-      <div>
+      <div className="modal-actions">
         <button onClick={handleSave}>Save</button>
         <button className="cancel" onClick={onClose}>Cancel</button>
       </div>
