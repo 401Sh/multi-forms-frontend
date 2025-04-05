@@ -138,7 +138,7 @@ function FormPage() {
       setErrorMessage("All mandatory questions must be answered")
       return
     }
-    console.dir(answers, {depth:5})
+    
     updateMutation.mutate(answers)
   }
 

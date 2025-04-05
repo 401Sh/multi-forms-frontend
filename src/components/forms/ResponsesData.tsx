@@ -20,7 +20,7 @@ async function fetchResponses(
 function ResponsesData({ questions }: { questions: QuestionInterface[] }) {
   const { surveyId } = useParams()
   const { setAuth } = useAuth()
-  console.dir(questions,{depth:5})
+  
   const { data, isLoading, isError } = useQuery({
     queryKey: ["form", surveyId],
     queryFn: () => fetchResponses(setAuth, surveyId!),
