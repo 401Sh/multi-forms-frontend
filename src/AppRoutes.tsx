@@ -4,7 +4,7 @@ import HomePage from "./pages/HomePage"
 import MySurveysPage from "./pages/MySurveysPage"
 import ProfilePage from "./pages/ProfilePage"
 import SurveyPage from "./pages/SurveyPage"
-import SurveysHomePage from "./pages/SurveysHomePage"
+import PublicSurveysPage from "./pages/PublicSurveysPage"
 import AuthPage from "./pages/AuthPage"
 import SuccessFormResponse from "./components/forms/SuccessFormResponse"
 
@@ -24,7 +24,7 @@ function AppRoutes() {
       <Route path="profile" element={<ProfilePage />} />
 
       <Route path="surveys">
-        <Route index element={<SurveysHomePage />} />
+        <Route index element={<PublicSurveysPage />} />
         <Route path="self" element={<MySurveysPage />} />
 
         <Route path=":surveyId" element={<SurveyPage />} />

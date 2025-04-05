@@ -2,7 +2,6 @@ import { useParams } from "react-router"
 import { useAuth } from "../../hooks/AuthProvider"
 import { useQuery } from "@tanstack/react-query"
 import { send_secure_request } from "../../api/authorized-request"
-import { Suspense } from "react"
 import ResponsesSheet from "./ResponsesSheet"
 import { QuestionInterface } from "../../interfaces/question.interface"
 
@@ -27,8 +26,10 @@ function ResponsesData({ questions }: { questions: QuestionInterface[] }) {
     queryFn: () => fetchResponses(setAuth, surveyId!),
     placeholderData: (prev) => prev
   })
-  console.dir(data, {depth:5})
-  if (isLoading) return <Suspense></Suspense>
+
+  if (isLoading) {
+    return <div className="container">Loading...</div>
+  }
   if (isError) return <p>Error loading survey responses</p>
 
   return (

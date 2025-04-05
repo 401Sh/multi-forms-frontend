@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query"
 import logger from "../utils/logger"
 import { send_secure_request } from "../api/authorized-request"
-import { Suspense, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { useAuth } from "../hooks/AuthProvider"
 import "../styles/main.style.scss"
 
@@ -114,7 +114,7 @@ function ProfilePage() {
   }
 
   if (isLoading) {
-    return <Suspense fallback={<div>Loading...</div>} />
+    return <div className="container">Loading...</div>
   }
   
   return (

@@ -1,6 +1,6 @@
 import { useParams, useSearchParams } from "react-router"
 import Constructor from "../components/surveys/Constructor"
-import { createContext, Suspense, useState } from "react"
+import { createContext, useState } from "react"
 import UpdateSurvey from "../components/surveys/UpdateSurvey"
 import { send_secure_request } from "../api/authorized-request"
 import { useAuth } from "../hooks/AuthProvider"
@@ -44,7 +44,9 @@ function SurveyPage() {
     setSearchParams({ tab })
   }
 
-  if (isLoading) return <Suspense></Suspense>
+  if (isLoading) {
+    return <div className="container">Loading...</div>
+  }  
   if (isError) return <p>Error loading survey</p>
 
   return (

@@ -1,4 +1,4 @@
-import { Suspense, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { send_secure_request } from "../api/authorized-request"
 import { useNavigate, useParams } from "react-router"
 import { useAuth } from "../hooks/AuthProvider"
@@ -144,7 +144,7 @@ function FormPage() {
 
 
   if (isLoading) {
-    return <Suspense fallback={<div>Loading...</div>} />
+    return <div className="container">Loading...</div>
   }
 
   return (
