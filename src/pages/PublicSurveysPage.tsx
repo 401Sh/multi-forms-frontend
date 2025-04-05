@@ -76,14 +76,11 @@ function SurveysHomePage() {
       {data?.surveys && data.surveys.length > 0 ? (
         <ul>
           {data!.surveys.map((survey: SurveyInterface) => (
-            <li key={survey.id}>
+            <li
+              key={survey.id}
+              onClick={() => navigate(`/surveys/${survey.id}/form`)}
+            >
               {survey.name}
-              <button
-                className="button"
-                onClick={() => navigate(`/surveys/${survey.id}/form`)}
-              >
-                Open
-              </button>
             </li>
           ))}
         </ul>

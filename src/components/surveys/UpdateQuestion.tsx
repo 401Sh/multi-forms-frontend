@@ -143,7 +143,7 @@ function UpdateQuestion({ data, onClose, onSave }: CreateQuestionProps) {
       </div>
 
       {data.type === QuestionType.TEXT ? (
-        <>
+        <div className="question-extra">
           <div>
             <label htmlFor="answer">Correct Answer:</label>
             <input
@@ -166,7 +166,7 @@ function UpdateQuestion({ data, onClose, onSave }: CreateQuestionProps) {
               min="0"
             />
           </div>
-        </>
+        </div>
       ) : (
         <UpdateOptionsList
           type={data.type!}

@@ -121,14 +121,11 @@ function MySurveysPage() {
       {data?.surveys && data.surveys.length > 0 ? (
         <ul>
           {data!.surveys.map((survey: SurveyInterface) => (
-            <li key={survey.id}>
+            <li
+              key={survey.id}
+              onClick={() => navigate(`/surveys/${survey.id}`)}  
+            >
               {survey.name}
-              <button
-                className="button"
-                onClick={() => navigate(`/surveys/${survey.id}`)}
-              >
-                Open
-              </button>
             </li>
           ))}
         </ul>

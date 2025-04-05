@@ -35,29 +35,72 @@
     margin-bottom: 5px;
   }
 
-  input,
-  select,
-  #questionPosition {
+  .modal-window input,
+  .modal-window select,
+  .modal-window #questionPosition {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
-    border-radius: $border-radius;
+    border-radius: 5px;
     outline: none;
-    font-family: $font-stack;
+    font-family: "Arial", sans-serif;
     font-size: 1rem;
     transition: border 0.3s;
 
+    // Для радиокнопок убираем общее поведение input
+    &:not([type="radio"]) {
+      width: 100%;
+    }
+  }
+
+  .modal-window .radio-option input[type="radio"] {
+    width: 18px;  // Устанавливаем размер радиокнопок
+    height: 18px;
+    margin-right: 8px;  // Добавляем отступ между кнопкой и текстом
+  }
+
+
+  #questionPosition {
+    width: 80%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: $border-radius;
+    font-family: $font-stack;
+    font-size: 1rem;
+    transition: border 0.3s;
+  
     &:focus {
       border-color: $primary-color;
     }
   }
 
-  #questionPosition {
-    width: 100px;
-    text-align: center;
-    padding: 5px;
-  }
 
+  .radio-option {
+    display: flex;
+    flex-direction: column;  // Вертикальное расположение радио-кнопок
+    gap: 10px;  // Добавляем отступы между кнопками
+    margin-bottom: 15px;
+  
+    div {
+      display: flex;
+      align-items: center;
+      gap: 10px;  // Отступ между радиокнопкой и лейблом
+    }
+  
+    label {
+      font-size: 1rem;
+      color: #333;
+    }
+  
+    input[type="radio"] {
+      margin: 0;  // Убираем стандартный отступ
+      accent-color: $primary-color;  // Устанавливаем основной цвет радиокнопки (при поддержке)
+      width: 18px;  // Устанавливаем размер кнопки
+      height: 18px;  // Устанавливаем размер кнопки
+    }
+  }  
+  
+  
   .error-message {
     color: red;
     font-size: 0.9rem;
@@ -88,4 +131,66 @@
       }
     }
   }
+
+  button {
+    @include button-style($primary-color);
+    width: 100%; // Делаем кнопку на всю ширину
+    padding: 10px; // Обновляем padding для лучшего внешнего вида
+    margin-bottom: 10px;
+  }
+
+  .option-item {
+    display: grid;
+    grid-template-columns: 1fr 80px 40px 80px; // текст, баллы, правильность, удалить
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 10px;
+  
+    input[type="text"] {
+      flex: 1;
+    }
+  
+    input[type="number"] {
+      width: 100%;
+    }
+  
+    input[type="radio"],
+    input[type="checkbox"] {
+      justify-self: center;
+    }
+  
+    .cancel {
+      @include button-style(red);
+      padding: 5px 10px;
+      font-size: 0.9rem;
+    }
+  }
+
+  .question-extra {
+    margin-top: 20px;
+  
+    div {
+      margin-bottom: 15px;
+  
+      label {
+        display: block;
+        margin-bottom: 5px;
+      }
+  
+      input {
+        width: 80%;  // здесь установлено значение ширины для поля
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: $border-radius;
+        outline: none;
+        font-family: $font-stack;
+        font-size: 1rem;
+        transition: border 0.3s;
+  
+        &:focus {
+          border-color: $primary-color;
+        }
+      }
+    }
+  }  
 }

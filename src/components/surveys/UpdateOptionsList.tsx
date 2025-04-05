@@ -1,6 +1,5 @@
 import { QuestionType } from "../../enums/question.enum"
 import { QuestionOption } from "../../interfaces/question-option.interface"
-import "../../styles/modal.style.scss"
 
 type CreateQuestionProps = {
   type: QuestionType,
