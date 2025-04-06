@@ -1,0 +1,15 @@
+services:
+  frontend:
+    build: .
+    ports:
+      - "${VITE_PORT}:${VITE_PORT}"
+    environment:
+      VITE_HOST: 0.0.0.0
+      VITE_PORT: ${VITE_PORT}
+      VITE_API_PROTOCOL: ${VITE_API_PROTOCOL}
+      VITE_API_HOST: ${VITE_API_HOST}
+      VITE_API_PORT: ${VITE_API_PORT}
+    volumes:
+      - ./src:/app/src
+      - /app/node_modules
+    command: npm run dev

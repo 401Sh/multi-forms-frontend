@@ -1,7 +1,9 @@
 import pino from "pino"
 
+const logLevel = import.meta.env.VITE_LOG_LEVEL || "info"
+
 const logger = pino({
-  level: "debug",  // "info", "warn", "error"
+  level: logLevel,  // "info", "warn", "error"
   transport: {
     target: "pino-pretty",
     options: {
