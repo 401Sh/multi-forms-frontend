@@ -1,0 +1,26 @@
+@use "../base/variables" as *;
+@use "../base/mixins" as *;
+
+ul {
+  list-style: none;
+  padding: 0 $edge-padding;
+
+  li {
+    padding: 12px 15px;
+    margin-bottom: 8px;
+    background-color: #fff;
+    border-radius: $border-radius;
+    box-shadow: $card-shadow;
+    @include smooth-transition(background-color, 0.3s);
+
+    &:hover {
+      background-color: $secondary-color;
+      color: #fff;
+      transform: scale(1.05);
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

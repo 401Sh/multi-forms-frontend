@@ -1,0 +1,115 @@
+// _mixins.scss
+@use "sass:color";
+@use "./variables" as *;
+
+// Центрирование по центру (flex)
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// Кнопка (гибкая настройка)
+@mixin button-style($bg-color, $text-color: #fff, $padding: 10px 15px) {
+  background-color: $bg-color;
+  color: $text-color;
+  padding: $padding;
+  border: none;
+  border-radius: $border-radius;
+  cursor: pointer;
+  transition: background 0.3s;
+
+  &:hover {
+    background-color: color.adjust($bg-color, $lightness: -25%, $space: hsl);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  &:focus {
+    outline: 2px solid $secondary-color;
+    outline-offset: 2px;
+  }
+}
+
+// Стиль карточки
+@mixin card-style(
+  $bg: #fff,
+  $border: 1px solid #eee,
+  $shadow: $card-shadow,
+  $hover-shadow: $card-shadow-hover
+) {
+  background-color: $bg;
+  border-radius: $border-radius;
+  box-shadow: $shadow;
+  border: $border;
+  transition: all 0.3s ease;
+
+  &:hover {
+    box-shadow: $hover-shadow;
+    border-color: $primary-color;
+  }
+}
+
+// Адаптивные точки
+@mixin media-up($breakpoint) {
+  @media (min-width: $breakpoint) {
+    @content;
+  }
+}
+
+@mixin media-down($breakpoint) {
+  @media (max-width: $breakpoint) {
+    @content;
+  }
+}
+
+// Скрытие скроллбаров (например, для контейнера)
+@mixin hide-scrollbar {
+  scrollbar-width: none; // Firefox
+  -ms-overflow-style: none; // IE 10+
+  &::-webkit-scrollbar {
+    display: none; // Chrome, Safari
+  }
+}
+
+// Плавная анимация (удобно под transitions)
+@mixin smooth-transition($props: all, $duration: 0.3s, $timing: ease-in-out) {
+  transition: $props $duration $timing;
+}
+
+@mixin modal-style {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+// Миксин для модальных окон
+@mixin modal-window {
+  @include flex-center;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+// Миксин для контента модального окна
+@mixin modal-content {
+  background-color: #fff;
+  padding: $edge-padding;
+  border-radius: $border-radius;
+  width: 400px;
+  max-width: 100%;
+  box-shadow: $card-shadow;
+}
+
+// Миксин для фокуса на input
+@mixin input-focus {
+  border-color: $primary-color;
+}

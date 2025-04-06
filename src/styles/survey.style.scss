@@ -1,6 +1,6 @@
 @use "sass:color";
-@use "./variables" as *;
-@use "./mixins" as *;
+@use "./base/variables" as *;
+@use "./base/mixins" as *;
 
 body {
   font-family: $font-stack;

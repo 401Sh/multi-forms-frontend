@@ -1,0 +1,28 @@
+// _variables.scss
+// Colors
+$primary-color: #a927dd;
+$secondary-color: #e22fb5;
+$success-color: #28a745;
+$error-color: #dc3545;
+$warning-color: #ffc107;
+$text-color: #333;
+$background-color: #f9f9f9;
+
+// Typography
+$font-stack: 'Arial', sans-serif;
+$font-size-base: 16px;
+$font-size-sm: 14px;
+$font-size-lg: 18px;
+$heading-font-weight: 600;
+$text-font-weight: 400;
+
+// Rounding
+$border-radius: 5px;
+
+// Padding
+$edge-padding: 20px;
+$list-gap: 12px;
+
+// Shadows
+$card-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+$card-shadow-hover: 0 8px 16px rgba(0, 0, 0, 0.15);

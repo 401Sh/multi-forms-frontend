@@ -1,0 +1,23 @@
+@use "../base/variables" as *;
+@use "../base/mixins" as *;
+
+.btn {
+  @include button-style($primary-color);
+}
+
+.btn--secondary {
+  @include button-style($secondary-color);
+}
+
+.btn--danger {
+  @include button-style($error-color);
+}
+
+.add-question-btn {
+  @extend .btn;
+  margin-right: $list-gap;
+}
+
+.delete-question-btn {
+  @extend .btn--danger;
+}

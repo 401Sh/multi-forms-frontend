@@ -1,0 +1,16 @@
+@use "../base/variables" as *;
+
+.container,
+.centered-container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: $edge-padding;
+  box-sizing: border-box;
+}
+
+.centered-container {
+  display: flex;
+  justify-content: center;
+  // align-items: center;
+}
