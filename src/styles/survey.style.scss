@@ -177,3 +177,35 @@ body {
     }
   }
 }
+
+.option-question {
+  display: grid;
+  grid-template-columns: 1fr 80px;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 10px;
+
+  padding: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.1); // лёгкая обводка
+  border-radius: 6px; // немного скруглённые углы
+  background-color: #fff; // на случай, если фон нужен
+
+  input[type="text"] {
+    flex: 1;
+  }
+
+  input[type="number"] {
+    width: 100%;
+  }
+
+  input[type="radio"],
+  input[type="checkbox"] {
+    justify-self: center;
+  }
+
+  .cancel {
+    @include button-style(red);
+    padding: 5px 10px;
+    font-size: 0.9rem;
+  }
+}

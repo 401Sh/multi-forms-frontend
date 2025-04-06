@@ -39,7 +39,7 @@ function Question({ refetch, questionData, onDeleteQuestion  }: QuestType) {
   }
 
   return (
-    <div className={isOptionBased ? `${type.toLowerCase()}-options` : "text-question"}>
+    <div>
       <label>Question: {name}</label>
       <p>Is Mandatory: {String(isMandatory)}</p>
       { questionText && <p>Text: {questionText}</p> }
@@ -47,7 +47,7 @@ function Question({ refetch, questionData, onDeleteQuestion  }: QuestType) {
       {isOptionBased ? (
         questionOptions?.sort((a, b) => a.position - b.position)
         .map(option => (
-          <div key={option.id} className={`${type.toLowerCase()}-option`}>
+          <div key={option.id} className="option-question">
             <label htmlFor={option.id}>{option.text}</label>
             <input
               type={type === QuestionType.RADIO ? "radio" : "checkbox"}
@@ -57,6 +57,7 @@ function Question({ refetch, questionData, onDeleteQuestion  }: QuestType) {
               readOnly
             />
             <p>Is Correct Answer: {String(option.isCorrect)}</p>
+            <p>Points: {option.points}</p>
           </div>
         ))
       ) : (
