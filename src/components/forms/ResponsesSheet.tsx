@@ -17,6 +17,11 @@ type SheetProps = {
 }
 
 function ResponsesSheet({ data, questions }: SheetProps) {
+  
+  if (!Array.isArray(data)) {
+    return <div>No data available</div>;
+  }
+
   const sheetHeader = useMemo<SheetHeader[]>(() => {
     return questions.map((q) => ({
       id: q.id,

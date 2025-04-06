@@ -33,10 +33,10 @@ type CreateQuestionProps = {
 function UpdateQuestion({ data, onClose, onSave }: CreateQuestionProps) {
   const [name, setName] = useState(data.name)
   const [position, setPosition] = useState(data.position)
-  const [questionText, setQuestionText] = useState(data.questionText)
-  const [isMandatory, setIsMandatory] = useState(data.isMandatory)
-  const [answer, setAnswer] = useState(data.answer)
-  const [points, setPoints] = useState(data.points)
+  const [questionText, setQuestionText] = useState(data?.questionText || "")
+  const [isMandatory, setIsMandatory] = useState(data?.isMandatory || false)
+  const [answer, setAnswer] = useState(data?.answer || "")
+  const [points, setPoints] = useState(data?.points || 0)
   const [questionOptions, setQuestionOptions] = useState(data.questionOptions)
   const [error, setError] = useState<string | null>(null)
 

@@ -10,6 +10,7 @@ import { QuestionOption } from "../interfaces/question-option.interface"
 import { QuestionInterface } from "../interfaces/question.interface"
 import { SurveyInterface } from "../interfaces/survey.interface"
 import { QuestionType } from "../enums/question.enum"
+import ErrorBoundary from "../utils/error-boundary"
 
 async function fetchForm(
   setAuth: (isAuth: boolean) => void,
@@ -56,7 +57,13 @@ function FormPage() {
 
   useEffect(() => {
     if (data) {
-      setFormData(data)
+      // Сортируем вопросы по position перед сохранением в состояние
+      const sortedQuestions = data.questions.sort(
+        (a: QuestionInterface, b: QuestionInterface) => a.position - b.position)
+      setFormData({
+        ...data,
+        questions: sortedQuestions
+      })
     }
     if (isError) {
       setErrorMessage(error.message)
@@ -143,16 +150,17 @@ function FormPage() {
   }
 
 
-  if (isLoading) {
+  if (isLoading || !formData) {
     return <div className="container">Loading...</div>
   }
 
   return (
     <form className="container">
       <h1>form page</h1>
-      <h2>{formData?.name}</h2>
-      <p>{formData?.description}</p>
-      {formData?.questions.map((q: QuestionInterface) => (
+      <h2>{formData.name}</h2>
+      <p>{formData.description}</p>
+      {formData.questions && formData.questions.length > 0 ? 
+        (formData.questions.map((q: QuestionInterface) => (
         <div key={q.id} className="question">
           <label>
             {q.name} {q.isMandatory && "*"}
@@ -167,7 +175,7 @@ function FormPage() {
           )}
           {q.type === "checkbox" && (
             <div>
-              {q.questionOptions!.map((opt: QuestionOption) => (
+              {q.questionOptions?.map((opt: QuestionOption) => (
                 <label key={opt.id}>
                   <input
                     type="checkbox"
@@ -181,7 +189,7 @@ function FormPage() {
           )}
           {q.type === "radio" && (
             <div>
-              {q.questionOptions!.map((opt: QuestionOption) => (
+              {q.questionOptions?.map((opt: QuestionOption) => (
                 <label key={opt.id}>
                   <input
                     type="radio"
@@ -196,7 +204,10 @@ function FormPage() {
             </div>
           )}
         </div>
-      ))}
+      ))
+    ) : (
+      <p>No questions available.</p>
+    )}
 
       {errorMessage && <p className="error-message">{errorMessage}</p>}
 
@@ -205,4 +216,12 @@ function FormPage() {
   )
 }
 
-export default FormPage
+function TestSurveyPage() {
+  return (
+    <ErrorBoundary fallback={<p>Something went wrong</p>}>
+      <FormPage></FormPage>
+    </ErrorBoundary>
+  )
+}
+
+export default TestSurveyPage
