@@ -88,8 +88,11 @@ function SurveyPage() {
         <button onClick={() => changeTab("constructor")} className={activeTab === "constructor" ? "active" : ""}>
           Constructor
         </button>
-        <button onClick={() => changeTab("responses")} className={activeTab === "responses" ? "active" : ""}>
-          Responses
+        <button onClick={() => changeTab("sheets")} className={activeTab === "sheets" ? "active" : ""}>
+          Responses Sheet
+        </button>
+        <button onClick={() => changeTab("charts")} className={activeTab === "charts" ? "active" : ""}>
+          Responses Chart
         </button>
       </div>
 
@@ -120,7 +123,7 @@ function SurveyPage() {
         />
       </> }
 
-      {activeTab === "responses" && (
+      {activeTab !== "constructor" && (
           <ResponsesData questions={data.questions}/>
       )}
 
