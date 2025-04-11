@@ -6,6 +6,7 @@ import { useMutation, useQuery } from "@tanstack/react-query"
 import { AnswerInterface } from "../interfaces/answer.interface"
 import logger from "../utils/logger"
 import "../styles/main.style.scss"
+import "../styles/survey.style.scss"
 import { QuestionOption } from "../interfaces/question-option.interface"
 import { QuestionInterface } from "../interfaces/question.interface"
 import { SurveyInterface } from "../interfaces/survey.interface"
@@ -56,7 +57,7 @@ function FormPage() {
   })
 
   useEffect(() => {
-    if (data) {
+    if (data && Array.isArray(data.questions)) {
       // Сортируем вопросы по position перед сохранением в состояние
       const sortedQuestions = data.questions.sort(
         (a: QuestionInterface, b: QuestionInterface) => a.position - b.position)
@@ -176,13 +177,13 @@ function FormPage() {
           {q.type === "checkbox" && (
             <div>
               {q.questionOptions?.map((opt: QuestionOption) => (
-                <label key={opt.id}>
+                <label key={opt.id} className="option-question">
+                  {opt.text}
                   <input
                     type="checkbox"
                     checked={answers.find((a) => a.questionId === q.id)?.answerOptions?.includes(opt.id) || false}
                     onChange={() => handleChange(q.id, opt.id, QuestionType.CHECK_BOX)}
                   />
-                  {opt.text}
                 </label>
               ))}
             </div>
@@ -190,7 +191,8 @@ function FormPage() {
           {q.type === "radio" && (
             <div>
               {q.questionOptions?.map((opt: QuestionOption) => (
-                <label key={opt.id}>
+                <label key={opt.id} className="option-question">
+                  {opt.text}
                   <input
                     type="radio"
                     name={q.id}
@@ -198,7 +200,6 @@ function FormPage() {
                     checked={answers.find((a) => a.questionId === q.id)?.answerOptions?.includes(opt.id) || false}
                     onChange={() => handleChange(q.id, opt.id, QuestionType.RADIO)}
                   />
-                  {opt.text}
                 </label>
               ))}
             </div>
