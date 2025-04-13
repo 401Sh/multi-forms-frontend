@@ -1,8 +1,8 @@
 import { screen, fireEvent } from "@testing-library/react"
-import Question from "../src/components/surveys/Question"
-import { QuestionType } from "../src/enums/question.enum"
 import { describe, expect, it, vi } from "vitest"
-import { customRender } from "../setupTests"
+import { customRender } from "../../setupTests"
+import Question from "../../src/components/surveys/Question"
+import { QuestionType } from "../../src/enums/question.enum"
 
 vi.mock('pino', () => ({
   default: () => ({

@@ -51,6 +51,12 @@ $ npm install
 $ npm run dev
 ```
 
+## Запуск тестов
+
+```bash
+$ npm run test
+```
+
 ## Структура проекта
 
 ```
@@ -78,8 +84,14 @@ src/
 │── App.tsx
 │── AppRoutes.tsx
 │── main.tsx
+test/                   # Тесты для компонентов
+│
+│── auths/
+│── forms/
+│── surveys/
 .env
 index.html
 tsconfig.json
 package.json
+setupTests.tsx          # Настройки для тестов
 ```

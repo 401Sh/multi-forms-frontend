@@ -1,8 +1,8 @@
 import { render, screen, fireEvent } from "@testing-library/react"
 import { describe, it, expect, vi } from "vitest"
-import UpdateOptionsList from "../src/components/surveys/UpdateOptionsList"
-import { QuestionType } from "../src/enums/question.enum"
-import { QuestionOption } from "../src/interfaces/question-option.interface"
+import UpdateOptionsList from "../../src/components/surveys/UpdateOptionsList"
+import { QuestionType } from "../../src/enums/question.enum"
+import { QuestionOption } from "../../src/interfaces/question-option.interface"
 
 describe("UpdateOptionsList", () => {
   const baseOption: QuestionOption = {

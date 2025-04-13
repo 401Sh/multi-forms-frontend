@@ -1,18 +1,18 @@
 import { fireEvent, screen, waitFor } from "@testing-library/react"
 import { describe, it, expect, vi, beforeEach } from "vitest"
-import { customRender } from "../setupTests"
-import UpdateSurvey from "../src/components/surveys/UpdateSurvey"
-import { SurveyAccess } from "../src/enums/survey.enum"
-import { SurveyContext } from "../src/pages/SurveyPage"
+import { customRender } from "../../setupTests"
+import UpdateSurvey from "../../src/components/surveys/UpdateSurvey"
+import { SurveyAccess } from "../../src/enums/survey.enum"
+import { SurveyContext } from "../../src/pages/SurveyPage"
+import { send_secure_request } from "../../src/api/authorized-request"
 
 // Мокаем send_secure_request
-vi.mock("../src/api/authorized-request", () => ({
+vi.mock("../../src/api/authorized-request", () => ({
   send_secure_request: vi.fn()
 }))
-import { send_secure_request } from "../src/api/authorized-request"
 
 // Мокаем логгер
-vi.mock("../src/utils/logger", () => ({
+vi.mock("../../src/utils/logger", () => ({
   default: {
     info: vi.fn(),
     error: vi.fn()
@@ -20,8 +20,8 @@ vi.mock("../src/utils/logger", () => ({
 }))
 
 // Мокаем useAuth
-vi.mock("../src/hooks/AuthProvider", async () => {
-  const actual: any = await vi.importActual("../src/hooks/AuthProvider")
+vi.mock("../../src/hooks/AuthProvider", async () => {
+  const actual: any = await vi.importActual("../../src/hooks/AuthProvider")
   return {
     ...actual,
     useAuth: () => ({ setAuth: vi.fn() })

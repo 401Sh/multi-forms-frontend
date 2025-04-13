@@ -1,22 +1,21 @@
 import { describe, it, vi, expect, beforeEach } from "vitest"
 import { fireEvent, screen, waitFor } from "@testing-library/react"
-import CreateQuestion from "../src/components/surveys/CreateQuestion"
-import { QuestionType } from "../src/enums/question.enum"
-import { customRender } from "../setupTests"
-import { SurveyContext } from "../src/pages/SurveyPage"
-import * as AuthProvider from "../src/hooks/AuthProvider"
-import * as requestModule from "../src/api/authorized-request"
-import React from "react"
+import CreateQuestion from "../../src/components/surveys/CreateQuestion"
+import { QuestionType } from "../../src/enums/question.enum"
+import { customRender } from "../../setupTests"
+import { SurveyContext } from "../../src/pages/SurveyPage"
+import * as AuthProvider from "../../src/hooks/AuthProvider"
+import * as requestModule from "../../src/api/authorized-request"
 
 // Мокаем `send_secure_request`
-vi.mock("../src/api/authorized-request", async () => {
+vi.mock("../../src/api/authorized-request", async () => {
   return {
     send_secure_request: vi.fn()
   }
 })
 
 // Мокаем логгер
-vi.mock("../src/utils/logger", () => ({
+vi.mock("../../src/utils/logger", () => ({
   default: {
     info: vi.fn(),
     error: vi.fn(),
