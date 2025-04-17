@@ -74,6 +74,8 @@ $ npm run test:e2e:debug
 ## Структура проекта
 
 ```
+e2e/                    # Full-flow тесты
+│
 public/                 # Статические файлы проекта
 │
 src/
