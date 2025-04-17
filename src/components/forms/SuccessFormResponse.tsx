@@ -1,6 +1,10 @@
 function SuccessFormResponse() {
   return (
-    <h1>Response successfully created</h1>
+    <div className="container">
+      <div className="centered-container">
+        <h1>Response successfully created</h1>
+      </div>
+    </div>
   )
 }
 

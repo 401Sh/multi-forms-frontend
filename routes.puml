@@ -1,0 +1,42 @@
+@startuml Routes
+map Users {
+  GET /api/users => получить всех пользователей
+  GET /api/users/self => получить данные о себе
+  PATCH /api/users/self => обновить данные о себе
+  DELETE /api/users/self => удалить свой аккаунт
+  GET /api/users/{userId} => найти пользователя по ID
+}
+
+map Auth {
+  POST /api/auth/signup => регистрация пользователя
+  POST /api/auth/signin => авторизация пользователя
+  DELETE /api/auth/logout => выход из системы
+  POST /api/auth/refresh => обновление токена
+}
+
+map Surveys {
+  POST /api/surveys => создать новый опрос
+  GET /api/surveys/self => получить список собственных опросов
+  GET /api/surveys/public => получить список публичных опросов
+  GET /api/surveys/{surveyId} => получить собственный опрос по ID
+  PATCH /api/surveys/{surveyId} => обновить мой опрос
+  DELETE /api/surveys/{surveyId} => удалить мой опрос
+}
+
+map Questions {
+  POST /api/surveys/{surveyId}/questions => создать новый вопрос в опросе
+  PATCH /api/surveys/{surveyId}/questions/{questionId} => обновить существующий опрос
+  DELETE /api/surveys/{surveyId}/questions/{questionId} => удалить вопрос
+}
+
+map Responses {
+  GET /api/surveys/{surveyId}/responses => получить ответы на опрос
+  POST /api/surveys/{surveyId}/responses => создать ответ на опрос
+  GET /api/surveys/{surveyId}/form => получить форму опроса
+}
+
+Auth --> Users
+Users --> Surveys
+Surveys --> Questions
+Users --> Responses
+@enduml

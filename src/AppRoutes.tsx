@@ -7,11 +7,14 @@ import SurveyPage from "./pages/SurveyPage"
 import PublicSurveysPage from "./pages/PublicSurveysPage"
 import AuthPage from "./pages/AuthPage"
 import SuccessFormResponse from "./components/forms/SuccessFormResponse"
+import NotFoundPage from "./pages/NotFoundPage"
 
 function AppRoutes() {
   return (
     <Routes>
       {/* <Route element={<NavTabLayout />}> */}
+
+      <Route path="*" element={<NotFoundPage />} />
 
       <Route index element={<HomePage />} />
 
