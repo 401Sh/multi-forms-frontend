@@ -14,6 +14,7 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     globals: true, // для использования `describe`, `test`, `expect` без импорта
-    setupFiles: ['./setupTests.tsx'] // опционально
+    setupFiles: ['./setupTests.tsx'], // опционально
+    exclude: ['e2e/**', 'node_modules/**']
   }
 })

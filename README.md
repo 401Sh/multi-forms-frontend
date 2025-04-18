@@ -51,6 +51,28 @@ $ npm install
 $ npm run dev
 ```
 
+# Тесты e2e
+
+## Запуск тестов
+
+```bash
+$ npm run test:e2e
+```
+
+## Запуск интерактивного окна для тестов
+
+```bash
+$ npx playwright test --ui
+```
+
+## Запуск тестов в пошаговом режиме с UI
+
+```bash
+$ npm run test:e2e:debug
+```
+
+# Unit тесты
+
 ## Запуск тестов
 
 ```bash
@@ -60,6 +82,8 @@ $ npm run test
 ## Структура проекта
 
 ```
+e2e/                    # Full-flow тесты
+│
 public/                 # Статические файлы проекта
 │
 src/

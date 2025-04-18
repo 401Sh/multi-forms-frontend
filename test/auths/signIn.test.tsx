@@ -5,6 +5,7 @@ import * as AuthProvider from "../../src/hooks/AuthProvider"
 import * as axiosInstance from "../../src/utils/axios-instance"
 import * as reactRouter from "react-router"
 import SignIn from "../../src/components/auths/SignIn"
+import React from "react"
 
 // Мокаем useNavigate
 vi.mock("react-router", () => ({
