@@ -23,15 +23,17 @@ test.describe.serial("Survey Full Flow", () => {
     await expect(page.getByRole("heading", { name: /profile page/i })).toBeVisible()
   })
 
-  test("Create survey", async ({ page }) => {
+  test("Create-Answer-Check-Delete survey test", async ({ page }) => {
     await createSurvey(page, surveyName)
-  })
-
-  test("Submit response", async ({ page }) => {
     await createSurveyResponse(page, surveyName)
-  })
-
-  test("Check responses and delete survey", async ({ page }) => {
     await deleteSurvey(page, surveyName)
   })
+
+  // test("Submit response", async ({ page }) => {
+  //   await createSurveyResponse(page, surveyName)
+  // })
+
+  // test("Check responses and delete survey", async ({ page }) => {
+  //   await deleteSurvey(page, surveyName)
+  // })
 })

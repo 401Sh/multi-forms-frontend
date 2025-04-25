@@ -6,7 +6,6 @@ import { customRender } from "../../setupTests"
 import { SurveyContext } from "../../src/pages/SurveyPage"
 import * as AuthProvider from "../../src/hooks/AuthProvider"
 import * as requestModule from "../../src/api/authorized-request"
-import React from "react"
 
 // Мокаем `send_secure_request`
 vi.mock("../../src/api/authorized-request", async () => {
